@@ -1,38 +1,42 @@
 <template>
   <div id="hello">
-    <img src="http://vuejs.org/images/logo.png">
+    <img src="/images/logo-256x256.png" />
     <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://gitter.im/vuejs/vue" target="_blank">Gitter Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vueify" target="_blank">vueify</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+    <h2>
+      <a href="#" class="btn btn-primary btn-lg" v-on:click="redirectToSignin" id="signin-button">Sign In with Blockstack</a>
+    </h2>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'hello',
-  data () {
+  name: "hello",
+  data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: "Welcome to roots"
+    };
+  },
+  methods: {
+    redirectToSignin: function(){
+      this.blockstack.redirectToSignIn(undefined, undefined, ['email'])
+    }
+  },
+  mounted: function() {
+    if (this.blockstack.isUserSignedIn()) {
+      var userData = this.blockstack.loadUserData()
+      console.log(userData)
+    } else if (this.blockstack.isSignInPending()) {
+      this.blockstack.handlePendingSignIn().then(function(userData) {
+        window.location = window.location.origin
+      })
     }
   }
-}
+};
 </script>
 
 <style scoped>
 #hello {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -40,7 +44,8 @@ export default {
   margin-top: 60px;
 }
 
-h1, h2 {
+h1,
+h2 {
   font-weight: normal;
 }
 

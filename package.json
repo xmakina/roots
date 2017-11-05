@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "watchify": "watchify -vd -p browserify-hmr -e src/main.js -o dist/build.js",
-    "serve": "http-server -o -c 1 -a localhost",
+    "serve": "http-server -o -c 1 -a localhost --cors",
     "dev": "npm-run-all --parallel watchify serve",
     "lint": "eslint --ext .js,.vue src test/unit",
     "test": "karma start karma.conf.js",
@@ -19,9 +19,9 @@
     ]
   },
   "dependencies": {
+    "blockbook": "https://github.com/xmakina/blockbook.git",
     "blockstack": "^0.13.4",
-    "vue": "^2.0.1",
-    "blockbook": "https://github.com/xmakina/blockbook.git"
+    "vue": "^2.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",
