@@ -1,5 +1,8 @@
 <template>
-  <textarea v-model="stateString"></textarea>
+  <div>
+    <h3>Your State</h3>
+    <textarea v-model="stateString"></textarea>
+  </div>
 </template>
 <script>
 export default {
