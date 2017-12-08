@@ -8,7 +8,7 @@
       <input type="text" id="email" v-model="userDetails.email">
       <label for="password">Password</label>
       <input type="password" id="password" v-model="userDetails.password">
-      <input type="submit" />
+      <input type="submit" :disabled="processing"/>
     </form>
   </div>
 </template>
@@ -23,15 +23,34 @@ export default {
   },
   data: function() {
     return {
-      userDetails: {name: "xmakina.id", email:"roots@xmakina.co.uk", password:"mypassword"}
-    }
+      userDetails: {
+        name: "xmakina.id",
+        email: "roots@xmakina.co.uk",
+        password: "mypassword"
+      },
+      processing: false
+    };
   },
   methods: {
     addProfile: function(profile) {
       var person = new this.blockstack.Person(profile);
     },
-    onSubmit: function(){
-      this.$emit('register', this.userDetails)
+    onSubmit: function() {
+      this.processing = true;
+      let userDetails = this.userDetails
+      this.blockbook
+        .register(userDetails.name, userDetails.email, userDetails.password)
+        .then(keyPair => {
+          this.processing = false;
+          this.$emit("register", keyPair);
+          return this.blockbook.login({
+            name: userDetails.name,
+            email: userDetails.email,
+            keyPair
+          });
+        }).then(login => {
+          this.$emit("login", userDetails);
+        });
     }
   },
   mounted: function() {

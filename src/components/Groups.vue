@@ -5,8 +5,21 @@
     <fieldset>
       <label for="name">Group Name</label>
       <input id="name" v-model="newGroupName" />
-      <input type="button" v-on:click="createGroup" value="Create Group"/>
+
+      <input type="button" v-on:click="createGroup" value="Create Group" :disabled="processing"/>
     </fieldset>
+    <div class="group">
+      <ul>
+        <li v-for="group in state.groups" v-bind:key="group.name">
+          {{group.name}}
+          <ul>
+            <li v-for="member in group.members" v-bind:key="member.alias">
+              {{member.alias}}
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
 </div>
 </template>
 <script>
@@ -18,14 +31,17 @@ export default {
   },
   data: () => {
     return {
-      newGroupName: ""
+      newGroupName: "",
+      processing: false
     };
   },
   methods: {
     createGroup: function() {
-      this.blockbook.makeGroup({name: this.newGroupName}).then(newGroup => {
-        this.$emit('newGroup', newGroup)
-      })
+      this.processing = true
+      this.blockbook.makeGroup({ name: this.newGroupName }).then(newGroup => {
+        this.processing = false
+        this.$emit("newGroup", newGroup);
+      });
     }
   }
 };
