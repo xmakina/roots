@@ -38,6 +38,11 @@ export default {
   methods: {
     loadState: function(state) {
       this.state = state;
+      return this.blockbook.login({
+        name: state.userDetails.name,
+        email: state.userDetails.email,
+        keyPair: state.keyPair
+      });
     },
     registerUser: function(keyPair) {
       let newState = {};
