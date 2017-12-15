@@ -18,8 +18,7 @@ export default {
   },
   methods: {
     redirectToSignin: function(){
-      alert('`${window.location}/manifest.json`', `${window.location}/manifest.json`)
-      this.blockstack.redirectToSignIn(`${window.location}/`, `${window.location}/manifest.json`, ['email'])
+      this.blockstack.redirectToSignIn(`${window.location.origin}/${window.location.pathname} + 'manifest.json'`, `${window.location}/${window.location.pathname}/manifest.json`, ['email'])
     }
   }
 };
