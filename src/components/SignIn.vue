@@ -18,7 +18,7 @@ export default {
   },
   methods: {
     redirectToSignin: function(){
-      this.blockstack.redirectToSignIn(undefined, undefined, ['email'])
+      this.blockstack.redirectToSignIn(`${window.location}/`, `${window.location}/manifest.json`, ['email'])
     }
   }
 };
