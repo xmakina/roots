@@ -1,6 +1,6 @@
 <template>
   <div id="signin">
-    <img src="/images/logo-256x256.png" />
+    <img src="images/logo-256x256.png" />
     <h1>{{ msg }}</h1>
     <h2>
       <a href="#" class="btn btn-primary btn-lg" v-on:click="redirectToSignin" id="signin-button">Sign In with Blockstack</a>
