@@ -1,9 +1,9 @@
 {
     "name": "roots",
-    "start_url": "localhost:8080",
+    "start_url": "./",
     "description": "A social network for Blockstack",
     "icons": [{
-      "src": "http://localhost:8080/images/logo-192x192.png",
+      "src": "./images/logo-256x256.png",
       "sizes": "192x192",
       "type": "image/png"
     }]
